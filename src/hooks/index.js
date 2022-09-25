@@ -1,10 +1,7 @@
-import {
-  BeadContextProvider,
-  BeadContext,
-  ColourContextProvider,
-  ColourContext,
-} from "../context";
+import { BeadContext, ColourContext } from "../context";
 
-export const useBeadContext = () => BeadContextProvider(BeadContext);
+import { useContext } from "react";
 
-export const useColourContext = () => ColourContextProvider(ColourContext);
+export const useBeadContext = () => useContext(BeadContext);
+
+export const useColourContext = () => useContext(ColourContext);
