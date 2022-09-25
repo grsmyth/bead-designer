@@ -3,25 +3,25 @@ export const BEAD_SIZES = [{ name: "Miyuki Bead", width: 4, height: 2 }];
 export const BEAD_PATTERNS = {
   horizontal: {
     name: "Straight Horizontal",
-    pattern: {repeat: 1, offset: 0},
+    pattern: {repeat: 1, mod: 1},
     xOffset: 0,
     yOffset: 0,
-    zRotation: 0,
+    zRotation: false,
   },
   vertical: {
     name: "Straight Vertical",
-    pattern: {repeat: 1, offset: 0},
+    pattern: {repeat: 1, mod: 1},
     xOffset: 0,
     yOffset: 0,
-    zRotation: 90,
+    zRotation: true,
   },
-  brick: { name: "Brick", pattern: {repeat: 1, offset: 1}, xOffset: 0.5, yOffset: 0, zRotation: 0 },
+  brick: { name: "Brick", pattern: {repeat: 1, mod: 2}, xOffset: 0.5, yOffset: 0, zRotation: 0 },
   doubleBrick: {
     name: "Double Brick",
-    pattern: {repeat: 2, offset: 1},
+    pattern: {repeat: 2, mod: 2},
     xOffset: 0.5,
     yOffset: 0,
-    zRotation: 0,
+    zRotation: false,
   },
 };
 
