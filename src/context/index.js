@@ -3,12 +3,17 @@ import { useState } from "react";
 export const BeadContext = React.createContext({});
 
 export const BeadContextProvider = ({ children }) => {
-  const [beads, setBeads] = useState({});
   const [beadPattern, setBeadPattern] = useState("horizontal");
+  const [divisions, setDivisions] = useState(1);
 
   return (
     <BeadContext.Provider
-      value={{ beads, setBeads, beadPattern, setBeadPattern }}
+      value={{
+        beadPattern,
+        setBeadPattern,
+        divisions,
+        setDivisions,
+      }}
     >
       {children}
     </BeadContext.Provider>

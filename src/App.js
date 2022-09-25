@@ -9,7 +9,7 @@ function App() {
   return (
     <ColourContextProvider>
       <BeadContextProvider>
-        <Container flexDirection="column">
+        <Container flexDirection="row">
           <LeftBar />
           <WorkSpace />
           <RightBar />

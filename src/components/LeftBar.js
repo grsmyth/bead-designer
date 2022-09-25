@@ -1,8 +1,14 @@
 import { useEffect, useState } from "react";
-import { BEAD_PATTERNS, BEAD_SIZES, HEIGHT, WIDTH } from "../../constants/beads";
+import {
+  BEAD_PATTERNS,
+  BEAD_SIZES,
+  HEIGHT,
+  WIDTH,
+} from "../constants/beads";
 import styled from "styled-components";
-import Container from "../container";
-import Text from "../text";
+import Container from "./container";
+import Text from "./text";
+import { useBeadContext } from "../hooks";
 
 const Input = styled.input`
   text-align: right;
@@ -12,25 +18,14 @@ const Input = styled.input`
 `;
 
 const LeftBar = () => {
-  const [divisions, setDivisions] = useState(1);
+  const { beadPattern, setBeadPattern, divisions, setDivisions } = useBeadContext();
   const [beadSize, setBeadSize] = useState(BEAD_SIZES[0]);
-  const [beadPattern, setBeadPattern] = useState("horizontal");
 
   const setSize = ({ target: { value } }, field) => {
     setBeadSize({ ...beadSize, [field]: value });
   };
 
   const patterns = Object.keys(BEAD_PATTERNS);
-
-  useEffect(() => {
-    const width = WIDTH;
-    const height = HEIGHT;
-
-    const heightPerDivision = height / divisions;
-
-
-
-  })
 
   return (
     <Container flexDirection="column" paddingLeft={16}>
