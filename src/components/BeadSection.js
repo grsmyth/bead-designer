@@ -1,62 +1,58 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import { BEAD_PATTERNS, INITIAL_SETUP } from "../constants/beads";
+import { BEAD_PATTERNS, BEAD_SIZES, HEIGHT, WIDTH } from "../constants/beads";
 import { useBeadContext } from "../hooks";
+import { InitialSetup } from "../utils";
 import Bead from "./Bead";
 import Container from "./container";
 export const BeadContext = React.createContext({});
 
-const BeadSection = () => {
-  const { beadPattern } = useBeadContext();
-  const [beads, setBeads] = useState(INITIAL_SETUP());
+const BeadSection = ({ division }) => {
+  const { divisions, beadSize, beadPattern } = useBeadContext();
+  const [beads, setBeads] = useState({});
 
-  //   useEffect(() => {
-  //     const initialBeads = INITIAL_SETUP();
+  const beadRow = ({ row }) => {
+    const beadRow = [];
 
-  //     setBeads(beads);
-  //   }, []);
+    for (let i = 0; i < WIDTH; i++) {
+      beadRow.push(
+        <Bead key={`bead-${row}${i}`} row={row} col={i} division={division} />
+      );
+    }
 
-  //   const renderBeads = () => {
-  //     return
-  //   };
+    return beadRow;
+  };
 
-  return (
-    <Container flexDirection="column">
-      {beads.map((beadRow, i) => {
-        const {
-          pattern: { repeat, mod },
-          zRotation,
-        } = BEAD_PATTERNS[beadPattern];
-        const rowCalc = Math.floor(i / repeat) % mod;
-        console.log(i, rowCalc);
+  const createBeadSection = () => {
+    const beadSection = [];
+    const beadHeight = HEIGHT / divisions;
 
-        return (
-          <Container
-            key={`bead-${i}`}
-            flexDirection="row"
-            paddingLeft={rowCalc * 10}
-          >
-            {beadRow.map((bead, j) => {
-              let height = bead.height;
-              let width = bead.width;
-              if (zRotation) {
-                height = bead.width;
-                width = bead.height;
-              }
-              return (
-                <Bead
-                  key={`bead-${i}${j}`}
-                  {...bead}
-                  height={height}
-                  width={width}
-                />
-              );
-            })}
-          </Container>
-        );
-      })}
-    </Container>
-  );
+    const {
+      pattern: { repeat, mod },
+      xOffset,
+    } = BEAD_PATTERNS[beadPattern];
+
+    const { width } = BEAD_SIZES[beadSize];
+    const paddingLeft = width * xOffset;
+
+    for (let i = 0; i < beadHeight; i++) {
+      const rowCalc = Math.floor(i / repeat) % mod;
+
+      beadSection.push(
+        <Container
+          key={`beadRow-${i}`}
+          flexDirection="row"
+          paddingLeft={rowCalc * paddingLeft}
+        >
+          {beadRow({ row: i })}
+        </Container>
+      );
+    }
+
+    return beadSection;
+  };
+
+  return <Container flexDirection="column">{createBeadSection()}</Container>;
 };
 
 export default BeadSection;

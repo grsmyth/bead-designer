@@ -10,7 +10,7 @@ function App() {
     <ColourContextProvider>
       <BeadContextProvider>
         <Container flexDirection="row">
-          <LeftBar />
+          <LeftBar flexShrink={1} />
           <WorkSpace />
           <RightBar />
         </Container>
